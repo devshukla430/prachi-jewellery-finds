@@ -100,7 +100,7 @@ interface AppContextType {
   verifyAdminPasscode: (passcode: string) => boolean;
   verifyAdminContact: (contact: string) => boolean;
   verifyAdminDualCredentials: (email: string, phone: string) => boolean;
-  sendAdminOtp: () => Promise<{ success: boolean; code?: string; message?: string }>;
+  sendAdminOtp: (purpose?: 'admin_2fa' | 'admin_reset') => Promise<{ success: boolean; code?: string; message?: string }>;
   verifyAdminOtp: (enteredOtp: string) => boolean;
   resetAdminPasscode: (newPasscode: string) => void;
 
@@ -557,11 +557,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     updateAdminSecurity({ adminUsername: clean });
   };
 
-  const sendAdminOtp = async () => {
+  const sendAdminOtp = async (purpose: 'admin_2fa' | 'admin_reset' = 'admin_2fa') => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     setAdminGeneratedOtp(otp);
 
-    const targetEmail = adminSecurity.adminEmail?.trim() || 'Prachishukla921@gmail.com';
+    const targetEmail = 'prachishukla921@gmail.com';
 
     try {
       const res = await fetch('/api/auth/send-otp', {
@@ -571,20 +571,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           contact: targetEmail,
           code: otp,
           type: 'admin',
+          purpose: purpose,
         }),
       });
       const data = await res.json();
       return {
         success: data.success ?? true,
-        code: otp,
-        message: data.message || `OTP dispatched to ${targetEmail}`,
+        message: data.message || `Verification code sent from shukladevesh545@gmail.com to ${targetEmail}`,
       };
     } catch (err: any) {
       console.warn('Admin OTP error:', err);
       return {
-        success: true,
-        code: otp,
-        message: `Verification code generated for ${targetEmail}.`,
+        success: false,
+        message: 'Failed to communicate with authentication email service.',
       };
     }
   };

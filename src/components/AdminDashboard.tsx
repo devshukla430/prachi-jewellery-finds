@@ -109,17 +109,32 @@ export default function AdminDashboard() {
   const [showPasscode, setShowPasscode] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
+  // Two-Factor Authentication (2FA) State for Admin Login
+  const [is2FAStep, setIs2FAStep] = useState(false);
+  const [admin2FACode, setAdmin2FACode] = useState('');
+  const [admin2FAError, setAdmin2FAError] = useState('');
+  const [isSending2FACode, setIsSending2FACode] = useState(false);
+  const [admin2FACountdown, setAdmin2FACountdown] = useState(0);
+
   // Forgot Passcode Recovery via Real Google Gmail OTP (100% Free Lifetime)
   const [isForgotModalOpen, setIsForgotModalOpen] = useState(false);
   const [recoveryStep, setRecoveryStep] = useState<'send-otp' | 'verify-otp' | 'new-passcode'>('send-otp');
   const [adminEnteredOtp, setAdminEnteredOtp] = useState('');
   const [isSendingAdminOtp, setIsSendingAdminOtp] = useState(false);
   const [adminOtpCountdown, setAdminOtpCountdown] = useState(0);
-  const [adminOtpDevToast, setAdminOtpDevToast] = useState('');
   const [newAdminPasscode, setNewAdminPasscode] = useState('');
   const [confirmAdminPasscode, setConfirmAdminPasscode] = useState('');
   const [recoveryError, setRecoveryError] = useState('');
   const [showNewPasscode, setShowNewPasscode] = useState(false);
+
+  // Countdown timer for Admin 2FA resend
+  React.useEffect(() => {
+    if (admin2FACountdown <= 0) return;
+    const t = setInterval(() => {
+      setAdmin2FACountdown(prev => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(t);
+  }, [admin2FACountdown]);
 
   // Countdown timer for Admin OTP resend
   React.useEffect(() => {
@@ -168,23 +183,76 @@ export default function AdminDashboard() {
     setIsCheckingAuth(false);
   }, []);
 
-  const handleAdminLogin = (e: React.FormEvent) => {
+  const handleAdminLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (verifyAdminPasscode(passcode)) {
-      setIsAuthenticated(true);
       setPasscodeError(false);
+      setIs2FAStep(true);
+      setAdmin2FAError('');
+      setAdmin2FACode('');
+      setIsSending2FACode(true);
+      setAdmin2FACountdown(60);
       try {
-        sessionStorage.setItem('prachi_admin_auth', 'true');
-      } catch (e) {}
-      showToast('Admin access granted! Welcome back, Prachi.');
+        const res = await sendAdminOtp('admin_2fa');
+        if (res.success) {
+          showToast('Passcode confirmed. Two-Factor authentication OTP sent to prachishukla921@gmail.com');
+        } else {
+          setAdmin2FAError(res.message || 'Failed to dispatch 2FA code via Gmail.');
+        }
+      } catch (err: any) {
+        setAdmin2FAError('Failed to dispatch 2FA code. Please check your network connection.');
+      } finally {
+        setIsSending2FACode(false);
+      }
     } else {
       setPasscodeError(true);
     }
   };
 
+  const handleVerify2FACode = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAdmin2FAError('');
+    if (!admin2FACode.trim()) {
+      setAdmin2FAError('Please enter the 6-digit OTP code received in your Gmail inbox.');
+      return;
+    }
+    if (verifyAdminOtp(admin2FACode)) {
+      setIsAuthenticated(true);
+      setIs2FAStep(false);
+      setAdmin2FACode('');
+      try {
+        sessionStorage.setItem('prachi_admin_auth', 'true');
+      } catch (e) {}
+      showToast('Two-factor authentication verified! Welcome back, Prachi.');
+    } else {
+      setAdmin2FAError('Invalid or expired 2FA code. Please check your Gmail or request a new code.');
+    }
+  };
+
+  const handleResend2FACode = async () => {
+    if (admin2FACountdown > 0 || isSending2FACode) return;
+    setIsSending2FACode(true);
+    setAdmin2FAError('');
+    try {
+      const res = await sendAdminOtp('admin_2fa');
+      if (res.success) {
+        setAdmin2FACountdown(60);
+        showToast('New 2FA code sent from shukladevesh545@gmail.com to prachishukla921@gmail.com');
+      } else {
+        setAdmin2FAError(res.message || 'Failed to resend code.');
+      }
+    } catch (e: any) {
+      setAdmin2FAError('Failed to communicate with authentication service.');
+    } finally {
+      setIsSending2FACode(false);
+    }
+  };
+
   const handleAdminLogout = () => {
     setIsAuthenticated(false);
+    setIs2FAStep(false);
     setPasscode('');
+    setAdmin2FACode('');
     try {
       sessionStorage.removeItem('prachi_admin_auth');
     } catch (e) {}
@@ -196,14 +264,11 @@ export default function AdminDashboard() {
     setIsSendingAdminOtp(true);
     setRecoveryError('');
     try {
-      const res = await sendAdminOtp();
+      const res = await sendAdminOtp('admin_reset');
       if (res.success) {
         setRecoveryStep('verify-otp');
         setAdminOtpCountdown(45);
-        if (res.code) {
-          setAdminOtpDevToast(res.code);
-        }
-        showToast(`Verification OTP dispatched to ${adminSecurity.adminEmail || 'prachishukla921@gmail.com'}`);
+        showToast('Verification OTP dispatched from shukladevesh545@gmail.com to prachishukla921@gmail.com');
       } else {
         setRecoveryError(res.message || 'Failed to dispatch verification code via Gmail.');
       }
@@ -657,87 +722,193 @@ export default function AdminDashboard() {
     return <div className="min-h-screen bg-[#FDF6F7]" />;
   }
 
-  // If not authenticated, display secure passcode gateway
+  // If not authenticated, display secure passcode gateway with Two-Factor Authentication (2FA)
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[#FDF6F7] flex flex-col justify-center items-center px-4 sm:px-6 py-6 sm:py-12 overflow-y-auto">
         <div className="w-full max-w-md bg-white rounded-3xl border border-[#F4D3DA] p-6 sm:p-10 shadow-card space-y-5 sm:space-y-6 text-center my-auto">
-          <div className="w-16 h-16 rounded-full bg-[#FCEEF0] border border-[#F4D3DA] text-[#BA4A6E] flex items-center justify-center mx-auto shadow-soft">
-            <Lock className="w-7 h-7 stroke-[1.5]" />
-          </div>
-
-          <div className="space-y-1.5">
-            <h2 className="font-serif text-2xl font-bold text-[#2D2427]">
-              Admin Security Gateway
-            </h2>
-            <p className="text-xs text-[#6E6266] leading-relaxed">
-              This portal is restricted to the store owner. Please enter your administrator passcode to access inventory, social settings, and payments.
-            </p>
-          </div>
-
-          <form onSubmit={handleAdminLogin} className="space-y-4 text-left">
-            <div>
-              <label className="block text-xs font-bold text-[#2D2427] mb-1.5">
-                Administrator Passcode
-              </label>
-              <div className="relative">
-                <input
-                  type={showPasscode ? "text" : "password"}
-                  value={passcode}
-                  onChange={(e) => {
-                    setPasscode(e.target.value);
-                    setPasscodeError(false);
-                  }}
-                  placeholder="Enter administrator passcode"
-                  className={`w-full px-4 py-3 rounded-2xl border text-xs bg-[#FFF9FA] focus:outline-none transition-colors ${
-                    passcodeError
-                      ? 'border-rose-400 focus:border-rose-600 ring-1 ring-rose-300'
-                      : 'border-[#F4D3DA] focus:border-[#BA4A6E]'
-                  }`}
-                  autoFocus
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPasscode(!showPasscode)}
-                  className="absolute right-3.5 top-3.5 text-[#A59499] hover:text-[#BA4A6E]"
-                >
-                  {showPasscode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
+          {!is2FAStep ? (
+            <>
+              <div className="w-16 h-16 rounded-full bg-[#FCEEF0] border border-[#F4D3DA] text-[#BA4A6E] flex items-center justify-center mx-auto shadow-soft">
+                <Lock className="w-7 h-7 stroke-[1.5]" />
               </div>
 
-              {passcodeError && (
-                <p className="text-[11px] text-rose-600 font-semibold mt-1.5 flex items-center gap-1">
-                  <AlertTriangle className="w-3.5 h-3.5" />
-                  <span>Incorrect passcode. Please try again or use Forgot Passcode.</span>
+              <div className="space-y-1.5">
+                <div className="inline-block px-2.5 py-0.5 rounded-full bg-[#FCEEF0] text-[#BA4A6E] text-[10px] font-bold tracking-wider uppercase mb-1">
+                  Step 1 of 2
+                </div>
+                <h2 className="font-serif text-2xl font-bold text-[#2D2427]">
+                  Admin Security Gateway
+                </h2>
+                <p className="text-xs text-[#6E6266] leading-relaxed">
+                  This portal is restricted to the store owner. Please enter your administrator passcode to proceed to Two-Factor Verification.
                 </p>
-              )}
-
-              <div className="flex justify-end mt-1.5">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsForgotModalOpen(true);
-                    setRecoveryStep('send-otp');
-                    setRecoveryError('');
-                    setAdminEnteredOtp('');
-                    setNewAdminPasscode('');
-                    setConfirmAdminPasscode('');
-                  }}
-                  className="text-[11px] font-semibold text-[#BA4A6E] hover:underline"
-                >
-                  Forgot Passcode?
-                </button>
               </div>
-            </div>
 
-            <button
-              type="submit"
-              className="btn-mauve w-full py-3.5 rounded-2xl text-xs font-bold shadow-hover flex items-center justify-center gap-2"
-            >
-              <Key className="w-4 h-4" />
-              <span>Unlock Admin Portal</span>
-            </button>
-          </form>
+              <form onSubmit={handleAdminLogin} className="space-y-4 text-left">
+                <div>
+                  <label className="block text-xs font-bold text-[#2D2427] mb-1.5">
+                    Administrator Passcode
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPasscode ? "text" : "password"}
+                      value={passcode}
+                      onChange={(e) => {
+                        setPasscode(e.target.value);
+                        setPasscodeError(false);
+                      }}
+                      placeholder="Enter administrator passcode"
+                      className={`w-full px-4 py-3 rounded-2xl border text-xs bg-[#FFF9FA] focus:outline-none transition-colors ${
+                        passcodeError
+                          ? 'border-rose-400 focus:border-rose-600 ring-1 ring-rose-300'
+                          : 'border-[#F4D3DA] focus:border-[#BA4A6E]'
+                      }`}
+                      autoFocus
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPasscode(!showPasscode)}
+                      className="absolute right-3.5 top-3.5 text-[#A59499] hover:text-[#BA4A6E]"
+                    >
+                      {showPasscode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+
+                  {passcodeError && (
+                    <p className="text-[11px] text-rose-600 font-semibold mt-1.5 flex items-center gap-1">
+                      <AlertTriangle className="w-3.5 h-3.5" />
+                      <span>Incorrect passcode. Please try again or use Forgot Passcode.</span>
+                    </p>
+                  )}
+
+                  <div className="flex justify-end mt-1.5">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsForgotModalOpen(true);
+                        setRecoveryStep('send-otp');
+                        setRecoveryError('');
+                        setAdminEnteredOtp('');
+                        setNewAdminPasscode('');
+                        setConfirmAdminPasscode('');
+                      }}
+                      className="text-[11px] font-semibold text-[#BA4A6E] hover:underline"
+                    >
+                      Forgot Passcode?
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSending2FACode}
+                  className="btn-mauve w-full py-3.5 rounded-2xl text-xs font-bold shadow-hover flex items-center justify-center gap-2 disabled:opacity-60"
+                >
+                  {isSending2FACode ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Verifying & Sending 2FA Code...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Key className="w-4 h-4" />
+                      <span>Verify Passcode & Continue</span>
+                    </>
+                  )}
+                </button>
+              </form>
+            </>
+          ) : (
+            <>
+              <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto shadow-soft">
+                <ShieldCheck className="w-7 h-7 stroke-[1.5]" />
+              </div>
+
+              <div className="space-y-1.5">
+                <div className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold tracking-wider uppercase mb-1">
+                  Step 2 of 2: Two-Factor Authentication
+                </div>
+                <h2 className="font-serif text-2xl font-bold text-[#2D2427]">
+                  2-Step Verification
+                </h2>
+                <p className="text-xs text-[#6E6266] leading-relaxed">
+                  Passcode verified. For maximum security, enter the 6-digit one-time authentication code sent to your registered Gmail address.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-[#FFF9FA] border border-[#F4D3DA] text-left text-xs space-y-1.5">
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="text-[#8C7E83]">Sent From:</span>
+                  <span className="font-mono font-semibold text-[#BA4A6E]">shukladevesh545@gmail.com</span>
+                </div>
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="text-[#8C7E83]">Recipient Inbox:</span>
+                  <span className="font-mono font-semibold text-[#2D2427]">prachishukla921@gmail.com</span>
+                </div>
+              </div>
+
+              <form onSubmit={handleVerify2FACode} className="space-y-4 text-left">
+                <div>
+                  <label className="block text-xs font-bold text-[#2D2427] mb-1.5">
+                    Enter 6-Digit 2FA Security Code
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    maxLength={6}
+                    value={admin2FACode}
+                    onChange={(e) => {
+                      setAdmin2FACode(e.target.value.replace(/[^0-9]/g, ''));
+                      setAdmin2FAError('');
+                    }}
+                    placeholder="e.g. 123456"
+                    className="w-full text-center tracking-[8px] font-mono text-xl py-3 rounded-2xl border border-[#F4D3DA] bg-[#FFF9FA] focus:outline-none focus:border-[#BA4A6E]"
+                    autoFocus
+                  />
+
+                  {admin2FAError && (
+                    <p className="text-[11px] text-rose-600 font-semibold mt-1.5 flex items-center gap-1">
+                      <AlertTriangle className="w-3.5 h-3.5" />
+                      <span>{admin2FAError}</span>
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex items-center justify-between text-xs pt-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIs2FAStep(false);
+                      setAdmin2FACode('');
+                      setAdmin2FAError('');
+                    }}
+                    className="inline-flex items-center gap-1 text-[11px] text-[#8C7E83] hover:text-[#BA4A6E]"
+                  >
+                    <ArrowLeft className="w-3 h-3" />
+                    <span>Back to Passcode</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    disabled={admin2FACountdown > 0 || isSending2FACode}
+                    onClick={handleResend2FACode}
+                    className="text-[11px] font-semibold text-[#BA4A6E] hover:underline disabled:opacity-50"
+                  >
+                    {isSending2FACode ? 'Sending...' : admin2FACountdown > 0 ? `Resend in ${admin2FACountdown}s` : 'Resend Code'}
+                  </button>
+                </div>
+
+                <button
+                  type="submit"
+                  className="btn-mauve w-full py-3.5 rounded-2xl text-xs font-bold shadow-hover flex items-center justify-center gap-2"
+                >
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>Verify 2FA & Access Dashboard</span>
+                </button>
+              </form>
+            </>
+          )}
 
           <div className="pt-2 border-t border-pink-50 flex items-center justify-between text-xs text-[#8C7E83]">
             <Link
@@ -747,7 +918,7 @@ export default function AdminDashboard() {
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Return to Storefront</span>
             </Link>
-            <span className="text-[10px] text-emerald-600 font-medium">100% Lifetime Free</span>
+            <span className="text-[10px] text-emerald-600 font-medium">Two-Factor Protected</span>
           </div>
         </div>
 
@@ -785,13 +956,17 @@ export default function AdminDashboard() {
                     To prevent unauthorized access, administrator passcode reset requires a 6-digit one-time security code sent directly to your registered Google email address.
                   </p>
 
-                  <div className="p-3.5 rounded-2xl bg-[#FFF9FA] border border-[#F4D3DA] space-y-1">
+                  <div className="p-3.5 rounded-2xl bg-[#FFF9FA] border border-[#F4D3DA] space-y-1.5 text-left">
                     <span className="text-[10px] uppercase font-bold text-[#8C7E83] tracking-wider block">
-                      Registered Administrator Email
+                      Email Routing
                     </span>
-                    <div className="font-semibold text-xs text-[#2D2427] flex items-center gap-1.5">
-                      <Mail className="w-3.5 h-3.5 text-[#BA4A6E]" />
-                      <span>{adminSecurity.adminEmail || 'prachishukla921@gmail.com'}</span>
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-[#8C7E83]">Sent From:</span>
+                      <span className="font-mono font-semibold text-[#BA4A6E]">shukladevesh545@gmail.com</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-[#8C7E83]">Recipient Inbox:</span>
+                      <span className="font-mono font-semibold text-[#2D2427]">prachishukla921@gmail.com</span>
                     </div>
                   </div>
 
@@ -825,9 +1000,13 @@ export default function AdminDashboard() {
 
               {/* Step 2: Enter 6-Digit OTP */}
               {recoveryStep === 'verify-otp' && (
-                <form onSubmit={handleVerifyAdminOtp} className="space-y-4 text-xs">
-                  <div className="p-3 rounded-xl bg-pink-50/70 border border-[#F4D3DA] text-[#6E6266] text-[11px] leading-relaxed">
-                    We sent a single-use 6-digit verification code to <strong>{adminSecurity.adminEmail || 'prachishukla921@gmail.com'}</strong>. Please check your Gmail inbox and spam folder.
+                <form onSubmit={handleVerifyAdminOtp} className="space-y-4 text-xs text-left">
+                  <div className="p-3 rounded-xl bg-pink-50/70 border border-[#F4D3DA] text-[#6E6266] text-[11px] leading-relaxed space-y-1">
+                    <p>A single-use 6-digit verification code has been dispatched to your Gmail inbox.</p>
+                    <div className="text-[10px] text-[#8C7E83] pt-1 space-y-0.5">
+                      <div>Sender: <strong className="font-mono text-[#BA4A6E]">shukladevesh545@gmail.com</strong></div>
+                      <div>Recipient: <strong className="font-mono text-[#2D2427]">prachishukla921@gmail.com</strong></div>
+                    </div>
                   </div>
 
                   <div>
@@ -846,19 +1025,6 @@ export default function AdminDashboard() {
                       autoFocus
                     />
                   </div>
-
-                  {adminOtpDevToast && (
-                    <div className="text-[11px] text-[#8C7E83] bg-white p-2 rounded-lg border border-[#F4D3DA] flex items-center justify-between">
-                      <span>Dev test code: <strong className="text-[#BA4A6E] font-mono">{adminOtpDevToast}</strong></span>
-                      <button
-                        type="button"
-                        onClick={() => setAdminEnteredOtp(adminOtpDevToast)}
-                        className="text-[10px] text-[#BA4A6E] font-semibold underline"
-                      >
-                        Auto-fill
-                      </button>
-                    </div>
-                  )}
 
                   {recoveryError && (
                     <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1">

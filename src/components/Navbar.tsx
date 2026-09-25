@@ -233,7 +233,7 @@ export const Navbar: React.FC = () => {
 
                         {user.role === 'admin' && (
                           <Link
-                            href="/admin"
+                            href="/prachi-studio-gateway"
                             onClick={() => setIsUserMenuOpen(false)}
                             className="flex items-center gap-2.5 px-4 py-2 hover:bg-[#FDF0F3] text-left text-[#BA4A6E] font-semibold transition-colors"
                           >

@@ -221,13 +221,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       const storedProds = localStorage.getItem('prachi_products');
       if (storedProds) {
-        const parsed = JSON.parse(storedProds);
-        const sampleIds = SAMPLE_PRODUCTS.map(p => p.id);
-        const cleaned = Array.isArray(parsed) ? parsed.filter((p: Product) => !sampleIds.includes(p.id)) : [];
-        setProducts(cleaned);
-        localStorage.setItem('prachi_products', JSON.stringify(cleaned));
+        try {
+          const parsed = JSON.parse(storedProds);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setProducts(parsed);
+          } else {
+            setProducts(INITIAL_PRODUCTS);
+            localStorage.setItem('prachi_products', JSON.stringify(INITIAL_PRODUCTS));
+          }
+        } catch {
+          setProducts(INITIAL_PRODUCTS);
+          localStorage.setItem('prachi_products', JSON.stringify(INITIAL_PRODUCTS));
+        }
       } else {
-        setProducts([]);
+        setProducts(INITIAL_PRODUCTS);
+        localStorage.setItem('prachi_products', JSON.stringify(INITIAL_PRODUCTS));
       }
 
       const storedClicks = localStorage.getItem('prachi_clicks');

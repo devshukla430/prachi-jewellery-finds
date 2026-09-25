@@ -2,13 +2,13 @@ import { Product, CategoryItem, CollectionBanner, JewelleryGuide, HomepageSettin
 
 export const INITIAL_SETTINGS: HomepageSettings = {
   announcements: [
-    "🌸 Free Shipping on Selected Products",
-    "100% Original Products via Amazon",
-    "Earn Cashback on Amazon Purchases"
+    "Curated Jewellery Finds from Amazon",
+    "Discover, Compare and Choose Timeless Styles",
+    "Handpicked Daily Trends, Styling Guides and Gift Ideas"
   ],
-  heroTag: "CURATED WITH LOVE ♡",
+  heroTag: "CURATED FINDS",
   heroHeadline: "Discover Jewellery You'll Love",
-  heroSubtitle: "Handpicked styles, latest trends and timeless pieces — all from Amazon, just for you!",
+  heroSubtitle: "Handpicked styles, latest trends and timeless pieces — all curated from Amazon for your everyday wardrobe.",
   heroCtaText: "Explore Finds →",
   heroCtaLink: "#featured-finds",
   heroImageUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=80",
@@ -27,50 +27,46 @@ export const INITIAL_CATEGORIES: CategoryItem[] = [
     name: "Earrings",
     slug: "earrings",
     imageUrl: "/categories/earrings.jpg",
-    count: 0,
+    count: 3,
   },
   {
     id: "cat-2",
     name: "Rings",
     slug: "rings",
     imageUrl: "/categories/rings.jpg",
-    count: 0,
+    count: 2,
   },
   {
     id: "cat-3",
     name: "Necklaces",
     slug: "necklaces",
     imageUrl: "/categories/necklace.jpg",
-    count: 0,
+    count: 3,
   },
   {
     id: "cat-4",
     name: "Bracelets",
     slug: "bracelets",
     imageUrl: "/categories/bracelet.jpg",
-    count: 0,
+    count: 2,
   },
   {
     id: "cat-5",
     name: "Jewellery Sets",
     slug: "jewellery-sets",
     imageUrl: "/categories/jewellery-sets.jpg",
-    count: 0,
+    count: 1,
   },
   {
     id: "cat-6",
     name: "Gift Ideas",
     slug: "gift-ideas",
     imageUrl: "/categories/gift-ideas.jpg",
-    count: 0,
+    count: 2,
   },
 ];
 
-// Catalogue starts completely clean with 0 products so user can add manually!
-export const INITIAL_PRODUCTS: Product[] = [];
-
-// Optional sample products that can be restored with a single click in Admin CMS if desired
-export const SAMPLE_PRODUCTS: Product[] = [
+export const INITIAL_PRODUCTS: Product[] = [
   {
     id: "prod-1",
     title: "Gold Hoop Earrings (Everyday Wear)",
@@ -82,15 +78,15 @@ export const SAMPLE_PRODUCTS: Product[] = [
     occasion: "Daily Wear",
     mrp: 1499,
     offerPrice: 999,
-    discountPercent: 35,
+    discountPercent: 33,
     rating: 4.5,
     reviewsCount: "1.2k",
     imageUrl: "https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=800&q=80",
     description: "Classic lightweight 18K gold-plated chunky huggie hoops crafted for sensitive ears and effortless everyday elegance.",
     bulletPoints: [
-      "18K High-Grade Gold Plating with Anti-Tarnish Coating",
+      "18K High-Grade Gold Plating with Anti-Tarnish Finish",
       "Hypoallergenic, Lead-free, and Nickel-free for all-day comfort",
-      "Secure click-top clasp that won't snag hair or clothes"
+      "Secure click-top clasp that will not snag hair or knitwear"
     ],
     amazonUrl: "https://www.amazon.in/s?k=gold+hoop+earrings+for+women&tag=prachifinds-21",
     badges: ["Featured", "Trending Now"],
@@ -123,12 +119,12 @@ export const SAMPLE_PRODUCTS: Product[] = [
   },
   {
     id: "prod-3",
-    title: "Heart Pendant Necklace (Trendy & Elegant)",
+    title: "Heart Pendant Necklace (Rose Gold Trendy & Elegant)",
     slug: "heart-pendant-necklace-trendy-elegant",
     category: "Necklaces",
     brand: "Yellow Chimes",
     style: "Trendy",
-    material: "Gold Plated",
+    material: "Rose Gold",
     occasion: "Office Wear",
     mrp: 1299,
     offerPrice: 899,
@@ -140,20 +136,197 @@ export const SAMPLE_PRODUCTS: Product[] = [
     bulletPoints: [
       "Rose-gold plated over surgical stainless steel",
       "16-inch chain with a 2-inch extender",
-      "Sweat and water-resistant finish"
+      "Sweat and water-resistant protective coating"
     ],
     amazonUrl: "https://www.amazon.in/s?k=heart+pendant+necklace+women&tag=prachifinds-21",
     badges: ["Featured", "Trending Now"],
     inStock: true,
   },
+  {
+    id: "prod-4",
+    title: "Chunky Curb Chain Link Bracelet",
+    slug: "chunky-curb-chain-link-bracelet",
+    category: "Bracelets",
+    brand: "Salty",
+    style: "Statement",
+    material: "Gold Plated",
+    occasion: "Party Wear",
+    mrp: 1199,
+    offerPrice: 799,
+    discountPercent: 33,
+    rating: 4.4,
+    reviewsCount: "640",
+    imageUrl: "https://images.unsplash.com/photo-1611591475878-bc57f0003b11?auto=format&fit=crop&w=800&q=80",
+    description: "Bold interlocking paperclip and curb link bracelet plated in warm yellow gold. Modern, confident, and effortless.",
+    bulletPoints: [
+      "High polish vacuum ion plating",
+      "Durable lobster claw fastening",
+      "Comfortable lightweight hollow link construction"
+    ],
+    amazonUrl: "https://www.amazon.in/s?k=chunky+chain+bracelet+women&tag=prachifinds-21",
+    badges: ["Trending Now"],
+    inStock: true,
+  },
+  {
+    id: "prod-5",
+    title: "Dual-Layer Herringbone & Snake Chain Necklace",
+    slug: "dual-layer-herringbone-snake-chain-necklace",
+    category: "Necklaces",
+    brand: "Giva",
+    style: "Trendy",
+    material: "Gold Plated",
+    occasion: "Daily Wear",
+    mrp: 1799,
+    offerPrice: 1199,
+    discountPercent: 33,
+    rating: 4.8,
+    reviewsCount: "1.9k",
+    imageUrl: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80",
+    description: "The viral layered necklace sensation combining a sleek flat liquid-gold herringbone choker with an understated delicate snake chain.",
+    bulletPoints: [
+      "No-tangle dual ring connector clasp",
+      "Anti-scratch flexible fluid drape",
+      "Hypoallergenic premium alloy"
+    ],
+    amazonUrl: "https://www.amazon.in/s?k=herringbone+layered+necklace+women&tag=prachifinds-21",
+    badges: ["Featured", "Best Value"],
+    inStock: true,
+  },
+  {
+    id: "prod-6",
+    title: "Freshwater Pearl Teardrop Dangle Earrings",
+    slug: "freshwater-pearl-teardrop-dangle-earrings",
+    category: "Earrings",
+    brand: "Yellow Chimes",
+    style: "Vintage",
+    material: "Silver",
+    occasion: "Festive",
+    mrp: 1599,
+    offerPrice: 949,
+    discountPercent: 41,
+    rating: 4.6,
+    reviewsCount: "920",
+    imageUrl: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80",
+    description: "Lustrous baroque teardrop pearls suspended from sculpted sterling silver fishhook posts. An elevated classic for weddings and evening celebrations.",
+    bulletPoints: [
+      "Natural baroque cultured pearl sheen",
+      "925 Sterling Silver ear wire",
+      "Featherlight weight for long festive wear"
+    ],
+    amazonUrl: "https://www.amazon.in/s?k=pearl+drop+earrings+women&tag=prachifinds-21",
+    badges: ["Gift Pick"],
+    inStock: true,
+  },
+  {
+    id: "prod-7",
+    title: "Sparkling Baguette Adjustable Cocktail Ring",
+    slug: "sparkling-baguette-adjustable-cocktail-ring",
+    category: "Rings",
+    brand: "Salty",
+    style: "Statement",
+    material: "Silver",
+    occasion: "Party Wear",
+    mrp: 899,
+    offerPrice: 499,
+    discountPercent: 45,
+    rating: 4.5,
+    reviewsCount: "410",
+    imageUrl: "https://images.unsplash.com/photo-1598560917505-59a3ad559071?auto=format&fit=crop&w=800&q=80",
+    description: "Geometric emerald-cut baguette cubic zirconia centered in a halo of pavé stones with a discreet flexible sizing band.",
+    bulletPoints: [
+      "Comfort-fit adjustable band fitting ring sizes 5 through 9",
+      "Triple rhodium plating for lasting silver shine",
+      "Prong set stones that stay secure"
+    ],
+    amazonUrl: "https://www.amazon.in/s?k=baguette+adjustable+ring+women&tag=prachifinds-21",
+    badges: ["Best Value"],
+    inStock: true,
+  },
+  {
+    id: "prod-8",
+    title: "Minimalist Evil Eye Protection Charm Bracelet",
+    slug: "minimalist-evil-eye-protection-charm-bracelet",
+    category: "Bracelets",
+    brand: "Giva",
+    style: "Minimal",
+    material: "Gold Plated",
+    occasion: "Daily Wear",
+    mrp: 1299,
+    offerPrice: 749,
+    discountPercent: 42,
+    rating: 4.7,
+    reviewsCount: "1.5k",
+    imageUrl: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=800&q=80",
+    description: "A delicate symbolic blue enamel nazar amulet set within an 18K gold-tone bezel on an adjustable whisper-thin sliding chain.",
+    bulletPoints: [
+      "Artisan handcrafted enamel centrepiece",
+      "Adjustable sliding bolero clasp fits any wrist size",
+      "Anti-tarnish protective lacquer"
+    ],
+    amazonUrl: "https://www.amazon.in/s?k=evil+eye+bracelet+for+women&tag=prachifinds-21",
+    badges: ["Trending Now"],
+    inStock: true,
+  },
+  {
+    id: "prod-9",
+    title: "Celestial Star & Moon Layered Choker Set",
+    slug: "celestial-star-moon-layered-choker-set",
+    category: "Jewellery Sets",
+    brand: "Yellow Chimes",
+    style: "Boho",
+    material: "Gold Plated",
+    occasion: "Party Wear",
+    mrp: 1499,
+    offerPrice: 899,
+    discountPercent: 40,
+    rating: 4.5,
+    reviewsCount: "780",
+    imageUrl: "https://images.unsplash.com/photo-1611591475878-bc57f0003b11?auto=format&fit=crop&w=800&q=80",
+    description: "Whimsical bohemian constellation necklace featuring celestial star and crescent moon charms delicately layered across two golden chains.",
+    bulletPoints: [
+      "Includes matching star stud earrings",
+      "Adjustable length with reinforced jump rings",
+      "Lead, nickel, and cadmium safe"
+    ],
+    amazonUrl: "https://www.amazon.in/s?k=star+and+moon+necklace+set&tag=prachifinds-21",
+    badges: ["Featured"],
+    inStock: true,
+  },
+  {
+    id: "prod-10",
+    title: "Luxury Velvet Travel Jewellery Case & Organizer",
+    slug: "luxury-velvet-travel-jewellery-case-organizer",
+    category: "Gift Ideas",
+    brand: "Prachi Finds",
+    style: "Minimal",
+    material: "Other",
+    occasion: "Daily Wear",
+    mrp: 999,
+    offerPrice: 599,
+    discountPercent: 40,
+    rating: 4.8,
+    reviewsCount: "3.1k",
+    imageUrl: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80",
+    description: "Compact blush-pink velvet zippered jewellery box with dedicated compartments for rings, necklace hooks, and earring cards.",
+    bulletPoints: [
+      "Anti-tarnish plush interior velvet lining",
+      "Sturdy metal zipper keeps jewellery secure during travel",
+      "Removable dividers accommodate watches and bracelets"
+    ],
+    amazonUrl: "https://www.amazon.in/s?k=travel+jewellery+organizer+box&tag=prachifinds-21",
+    badges: ["Gift Pick", "Best Value"],
+    inStock: true,
+  },
 ];
+
+export const SAMPLE_PRODUCTS: Product[] = INITIAL_PRODUCTS;
 
 export const INITIAL_BANNERS: CollectionBanner[] = [
   {
     id: "banner-under-99",
     title: "Steal Finds Under ₹99",
     tagline: "SUPER SAVER",
-    subtitle: "Cute studs, nose pins, minimal ear cuffs & rings at steal prices.",
+    subtitle: "Cute studs, nose pins, minimal ear cuffs and rings at steal prices.",
     ctaText: "Shop Under ₹99 →",
     ctaLink: "#featured-finds",
     imageUrl: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80",
@@ -163,7 +336,7 @@ export const INITIAL_BANNERS: CollectionBanner[] = [
     id: "banner-under-499",
     title: "Daily Luxury Under ₹499",
     tagline: "POCKET-FRIENDLY",
-    subtitle: "Anti-tarnish, everyday chic pieces that look ₹5,000+.",
+    subtitle: "Anti-tarnish, everyday chic pieces that look luxurious.",
     ctaText: "Shop Under ₹499 →",
     ctaLink: "#featured-finds",
     imageUrl: "https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=600&q=80",
@@ -173,7 +346,7 @@ export const INITIAL_BANNERS: CollectionBanner[] = [
     id: "banner-under-999",
     title: "Best Value Under ₹999",
     tagline: "STATEMENT FINDS",
-    subtitle: "925 sterling silver, luxury zirconia & royal gift sets.",
+    subtitle: "925 sterling silver, luxury zirconia and curated gift sets.",
     ctaText: "Shop Under ₹999 →",
     ctaLink: "#featured-finds",
     imageUrl: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80",
@@ -183,7 +356,7 @@ export const INITIAL_BANNERS: CollectionBanner[] = [
     id: "banner-trending",
     title: "Trending Sensation",
     tagline: "HOT PICKS",
-    subtitle: "Most loved Instagram & Pinterest jewellery picks.",
+    subtitle: "Most loved Instagram and Pinterest jewellery picks.",
     ctaText: "Explore Trending →",
     ctaLink: "#featured-finds",
     imageUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
@@ -193,7 +366,7 @@ export const INITIAL_BANNERS: CollectionBanner[] = [
     id: "banner-gift",
     title: "Curated Gift Picks",
     tagline: "GIFT READY",
-    subtitle: "Perfect jewellery gift boxes for every special occasion.",
+    subtitle: "Thoughtful jewellery gift boxes for birthdays, anniversaries and festivals.",
     ctaText: "Explore Gifts →",
     ctaLink: "#featured-finds",
     imageUrl: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80",
@@ -223,7 +396,7 @@ Mid-sized hoops provide just enough drama to elevate a plain white tee or denim 
 #### 3. Evening Glam (40mm+ or Chunky Drops)
 Make a bold statement with oversized chunky hoops or sculptural teardrops. Keep neck jewellery minimal to keep the focus centered on your cheekbones and jawline.
     `,
-    recommendedProductIds: [],
+    recommendedProductIds: ["prod-1"],
   },
   {
     id: "guide-2",
@@ -246,13 +419,13 @@ Crew collars look best when either framed by a short collarbone choker or contra
 #### Sweetheart & Square Necklines
 Geometric necklines crave softer curves or statement collar pieces. Try a layered set that combines a 14-inch choker with a 16-inch coin charm.
     `,
-    recommendedProductIds: [],
+    recommendedProductIds: ["prod-3", "prod-5"],
   },
   {
     id: "guide-3",
     category: "Gift Ideas",
-    title: "10 Jewellery Gift Ideas for Women",
-    excerpt: "Thoughtful, high-perceived-value jewellery gifts under ₹2,000 that look like a million bucks.",
+    title: "10 Jewellery Gift Ideas for Women Under ₹2,000",
+    excerpt: "Thoughtful, high-perceived-value jewellery gifts under ₹2,000 that look luxurious and memorable.",
     readTime: "6 min read",
     imageUrl: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80",
     content: `
@@ -265,7 +438,7 @@ Jewellery is one of the most cherished gifts, but guessing ring sizes or bold ta
 3. **Pendant Jewellery Sets**: Coordinated sets save time in the morning and arrive packaged in presentation-ready gift boxes.
 4. **Velvet Travel Organizers**: If she already loves jewellery, a blush pink lockable jewelry case is the most thoughtful companion gift.
     `,
-    recommendedProductIds: [],
+    recommendedProductIds: ["prod-2", "prod-10"],
   },
   {
     id: "guide-4",
@@ -288,14 +461,208 @@ Never store jewellery in damp bathrooms. Keep pieces in airtight zip pouches or 
 #### Rule 3: Quick Microfiber Wipe
 After each wear, gently wipe away skin oils with a soft cloth before storing.
     `,
-    recommendedProductIds: [],
+    recommendedProductIds: ["prod-10"],
+  },
+  {
+    id: "guide-5",
+    category: "Jewellery Styling",
+    title: "5 Ring Styles Every Woman Should Have in Her Collection",
+    excerpt: "From classic solitaires to textured stackers and cocktail centerpieces, build a versatile ring wardrobe for every mood.",
+    readTime: "5 min read",
+    imageUrl: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80",
+    content: `
+### Building Your Personal Ring Wardrobe
+
+Rings are the one piece of jewellery you get to admire yourself throughout the day. Curating distinct styles gives you infinite versatility:
+
+#### 1. The Classic Solitaire
+Timeless, graceful, and sparkling. A brilliant round or cushion-cut solitaire worn on the ring finger or index finger adds instant refinement to any manicure.
+
+#### 2. Dainty Stackable Bands
+Micro-twisted, pavé, or textured gold bands are made to be layered. Mix metals or stack two on one finger with a gap ring above the knuckle.
+
+#### 3. The Statement Cocktail Ring
+Featuring an emerald-cut or baguette stone, cocktail rings command attention and serve as conversation starters for celebrations and dinner parties.
+
+#### 4. The Signet or Dome Ring
+Smooth, sculptural gold dome rings bring a bold vintage 90s aesthetic that balances soft, feminine dresses with modern structure.
+
+#### 5. Adjustable Tension Bands
+Eliminate ring-sizing guesswork with flexible bands that comfortably shift between index, middle, or thumb depending on your daily mood.
+    `,
+    recommendedProductIds: ["prod-2", "prod-7"],
+  },
+  {
+    id: "guide-6",
+    category: "Buying Guides",
+    title: "Gold vs. Silver: Which Metal Best Matches Your Skin Undertone?",
+    excerpt: "Learn how to identify cool, warm, and neutral undertones to choose pieces that make your complexion glow.",
+    readTime: "4 min read",
+    imageUrl: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80",
+    content: `
+### Finding Your Signature Metal
+
+Ever wonder why some jewellery makes your skin illuminate while other metals look dull? The secret lies in your skin's natural undertones.
+
+#### 1. The Quick Vein Test
+- **Cool Undertones**: If the veins on your inner wrist appear blue or purple, platinum, rhodium, and 925 sterling silver will naturally complement your radiance.
+- **Warm Undertones**: If your veins appear green or olive, warm 14K/18K yellow gold and rich brass tones bring out your sun-kissed warmth.
+- **Neutral Undertones**: If your veins appear blue-green, you can effortlessly rock both gold and silver, making mixed-metal looks your superpower.
+
+#### 2. The White Fabric Contrast
+Drape a pure stark white shirt near your neck, then a soft off-white cream scarf. If stark white looks best, silver is your match. If warm cream enhances your face, yellow gold is your hero.
+
+#### 3. Breaking the Rules: Mixed Metals
+Modern styling embraces mixing silver and gold together. Anchor the combination with a dual-toned watch or interlocking two-tone ring for intentional cohesion.
+    `,
+    recommendedProductIds: ["prod-1", "prod-2"],
+  },
+  {
+    id: "guide-7",
+    category: "Jewellery Styling",
+    title: "The Minimalist Jewellery Blueprint for Everyday Office Wear",
+    excerpt: "Look polished and professional with work-friendly accessories that never distract, snag, or make noise during meetings.",
+    readTime: "4 min read",
+    imageUrl: "https://images.unsplash.com/photo-1598560917505-59a3ad559071?auto=format&fit=crop&w=600&q=80",
+    content: `
+### Professional Polish: Workplace Jewellery Etiquette
+
+In workplace settings, jewellery should elevate your authority and polish without becoming a noisy distraction.
+
+#### The No-Clank Rule
+Skip jangling arm stacks or loose charm bracelets that clatter against laptops and conference tables during presentations. Opt instead for a snug cuff or a sleek leather-strap watch.
+
+#### Understated Studs & Huggies
+Small gold huggies or crystal studs frame your face during Zoom video calls and face-to-face meetings while remaining completely comfortable under headsets.
+
+#### Low-Profile Necklaces
+A 16-inch solitaire pendant or thin snake chain peeking through a crisp button-down or collar blazer adds intentional sophistication without overpowering business formal attire.
+    `,
+    recommendedProductIds: ["prod-1", "prod-3"],
+  },
+  {
+    id: "guide-8",
+    category: "Buying Guides",
+    title: "How to Build an Affordable Capsule Jewellery Collection on a Budget",
+    excerpt: "The seven foundational pieces that pair with 90 percent of your wardrobe without overspending.",
+    readTime: "5 min read",
+    imageUrl: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=600&q=80",
+    content: `
+### The 7 Essential Capsule Pieces
+
+Just like a capsule wardrobe of white shirts and trench coats, a thoughtful capsule jewellery box saves you time every morning:
+
+1. **A Pair of Small Gold Huggie Hoops**: Your daily morning go-to that looks chic with gym wear or tailored suits.
+2. **A Solitaire Pendant Necklace**: Subtle sparkle that rests comfortably at your collarbone.
+3. **A 925 Silver or Gold Stacking Ring**: Clean lines that add effortless detail to your hands.
+4. **A Textured Chain Bracelet**: Adds structure when rolling up shirt sleeves.
+5. **Freshwater Pearl Drops**: The effortless bridge between daywear and evening gatherings.
+6. **A Statement Cocktail Ring**: When your outfit is basic, this adds instant personality.
+7. **A Protective Storage Case**: Keeps your core collection dust-free, organized, and ready for travel.
+    `,
+    recommendedProductIds: ["prod-1", "prod-2", "prod-5", "prod-10"],
+  },
+  {
+    id: "guide-9",
+    category: "Jewellery Care",
+    title: "Demystifying Anti-Tarnish & Waterproof Jewellery: PVD vs Flash Plating",
+    excerpt: "Understand physical vapor deposition, stainless steel bases, and why anti-tarnish coating makes affordable pieces last.",
+    readTime: "5 min read",
+    imageUrl: "https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=600&q=80",
+    content: `
+### Behind the Science of Modern Jewellery Plating
+
+Traditional costume jewellery often turns green or discolors after light sweat or moisture. Modern technology has changed that:
+
+#### What is PVD Coating?
+PVD (Physical Vapor Deposition) is a high-tech vacuum process where 18K gold vapor is bonded molecularly to durable 316L surgical stainless steel. This creates a surface hardness ten times more durable than conventional electroplating.
+
+#### Flash Plating vs. PVD
+- **Standard Electroplating**: A thin layer of gold (0.1 to 0.5 microns) dipped over brass. Prone to wear if exposed to soaps or water.
+- **PVD Vacuum Plating**: Bonds deeply with stainless steel, making it sweat-proof, shower-safe, and resistant to corrosion.
+
+#### Caring for PVD Pieces
+While PVD is remarkably resilient against water, avoid harsh bleach, chlorine pools, and abrasive cleaning pads to protect the mirror-like finish indefinitely.
+    `,
+    recommendedProductIds: ["prod-1", "prod-4", "prod-8"],
+  },
+  {
+    id: "guide-10",
+    category: "Jewellery Styling",
+    title: "The Art of Layering Necklaces and Chains Without Tangling",
+    excerpt: "The 3-layer proportion guide, chain thickness balance, and clasp tricks to keep layered necklaces untangled all day.",
+    readTime: "4 min read",
+    imageUrl: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80",
+    content: `
+### Master the Layered Neckline
+
+Layering necklaces creates visual depth and elevates basic sweaters, tank tops, and dresses. Here is how to achieve the look without the tangle:
+
+#### The 2-Inch Golden Rule
+Always separate each chain by at least 2 inches in length:
+- **Base Layer**: 14" to 15" Choker (flat herringbone or collar chain)
+- **Mid Layer**: 16" to 18" Medium Link (paperclip or rope chain)
+- **Drop Layer**: 20" to 22" Pendant (coin, locket, or gemstone drop)
+
+#### Mix Different Textures
+Never layer two identical delicate cable chains together, as their links naturally weave into knots. Instead, combine a flat wide chain with a round link and a pendant.
+
+#### Use Multi-Strand Magnetic Detanglers
+Inexpensive layered necklace spacer clasps hold two or three chains at fixed intervals behind your neck, preventing rotation and twists throughout the day.
+    `,
+    recommendedProductIds: ["prod-3", "prod-5", "prod-9"],
+  },
+  {
+    id: "guide-11",
+    category: "Jewellery Styling",
+    title: "How to Choose Earrings That Flatter Your Face Shape",
+    excerpt: "Match drops, studs, chandeliers, and hoops to Round, Oval, Square, and Heart face shapes for balance.",
+    readTime: "5 min read",
+    imageUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+    content: `
+### Complementing Your Natural Bone Structure
+
+The right earring silhouette can highlight your cheekbones, soften jawlines, and elongate your neck:
+
+#### 1. Round Face Shapes
+Elongate your features with linear drops, dangling geometric silhouettes, and slim chandeliers that draw the eye downward. Avoid wide circular studs.
+
+#### 2. Oval Face Shapes
+Oval faces enjoy natural symmetry and can wear almost any earring silhouette, especially teardrops, oval hoops, and sculptural huggies.
+
+#### 3. Square Face Shapes
+Soften angular cheekbones and jawlines with circular hoops, curving teardrops, and flowing rounded drops.
+
+#### 4. Heart Face Shapes
+Heart faces with wider foreheads and tapered chins look stunning with wider triangular drops and chandeliers that add gentle volume near the jawline.
+    `,
+    recommendedProductIds: ["prod-1", "prod-6"],
+  },
+  {
+    id: "guide-12",
+    category: "Jewellery Styling",
+    title: "Statement Party Jewellery Trends: Glamour Ideas for Celebrations",
+    excerpt: "From sparkling crystal cuffs to bold drop earrings, discover festive jewellery combinations for cocktail parties and weddings.",
+    readTime: "4 min read",
+    imageUrl: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80",
+    content: `
+### Party Season: Shine With Intention
+
+When attending weddings, dinner parties, or festival soirees, make your accessories do the talking with these styling combinations:
+
+#### 1. The Single Statement Focal Point
+If wearing oversized chandelier earrings, skip heavy necklaces and wear a delicate tennis bracelet and cocktail ring instead. Balancing focal points creates sophisticated elegance.
+
+#### 2. Crystal & Emerald Accents
+Deep bottle-green and rich ruby cubic zirconia stones set in yellow gold replicate the timeless grandeur of royal heritage jewellery at a fraction of the cost.
+
+#### 3. Stacked Ear Cuffs
+No extra piercings needed: clip-on ear cuffs allow you to construct an edgy constellation ear stack that pairs sensationally with slicked-back buns and evening gowns.
+    `,
+    recommendedProductIds: ["prod-6", "prod-7", "prod-9"],
   },
 ];
 
-// Commissions data starts empty for a new account (user records real payouts as they occur)
 export const INITIAL_COMMISSIONS: AmazonCommissionItem[] = [];
 
-// Collections start clean at 0 (customers create their own moodboard collections)
 export const INITIAL_COLLECTIONS: WishlistCollection[] = [];
-
-

@@ -161,13 +161,13 @@ export const QuickViewModal: React.FC = () => {
 
               <div className="flex items-center justify-between text-[11px] text-[#8C7E83] px-2">
                 <span className="flex items-center gap-1">
-                  <ShieldCheck className="w-3 h-3 text-emerald-600" /> Amazon Genuine
+                  <ShieldCheck className="w-3 h-3 text-emerald-600" /> Amazon Verified
                 </span>
                 <span className="flex items-center gap-1">
-                  <Truck className="w-3 h-3 text-[#BA4A6E]" /> Prime Fast Shipping
+                  <Truck className="w-3 h-3 text-[#BA4A6E]" /> Direct Amazon Link
                 </span>
                 <span className="flex items-center gap-1">
-                  <RotateCcw className="w-3 h-3 text-amber-600" /> Easy Returns
+                  <RotateCcw className="w-3 h-3 text-amber-600" /> Amazon Policy Applies
                 </span>
               </div>
             </div>

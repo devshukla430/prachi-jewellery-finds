@@ -1,15 +1,42 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Instagram, Youtube, ArrowRight, Shield } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { LegalModal, LegalTabType } from './LegalModal';
 
 export const Footer: React.FC = () => {
+  const router = useRouter();
   const { setFilter, settings, subscribeEmail } = useApp();
   const [footerEmail, setFooterEmail] = useState('');
   const [subscribeMessage, setSubscribeMessage] = useState<string | null>(null);
+
+  // Discreet Owner Gateway Trigger
+  const [ownerClicks, setOwnerClicks] = useState(0);
+  const [ownerHint, setOwnerHint] = useState(false);
+
+  // Hidden Keyboard Shortcut (Ctrl+Shift+A) for Store Owner
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        router.push('/prachi-studio-gateway');
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [router]);
+
+  const handleOwnerTrigger = () => {
+    const next = ownerClicks + 1;
+    setOwnerClicks(next);
+    if (next >= 5) {
+      setOwnerHint(true);
+      router.push('/prachi-studio-gateway');
+    }
+  };
 
   // Legal Policies Modal State
   const [legalModalOpen, setLegalModalOpen] = useState(false);
@@ -256,8 +283,17 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-[11px] text-[#8C7E83]">
-            <p>
+            <p
+              onClick={handleOwnerTrigger}
+              className="cursor-default select-none transition-opacity hover:opacity-95"
+              title="Prachi Jewellery Finds"
+            >
               © {new Date().getFullYear()} <strong>Prachi Jewellery Finds</strong>. All Rights &amp; Copyrights Reserved.
+              {ownerHint && (
+                <span className="block text-[10px] text-[#BA4A6E] font-semibold mt-0.5">
+                  Opening Owner Portal...
+                </span>
+              )}
             </p>
             <span className="hidden sm:inline text-[#E2BDC6]">•</span>
             <div className="flex items-center gap-3">

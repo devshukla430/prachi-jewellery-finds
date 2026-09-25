@@ -69,15 +69,15 @@ export const HeroSection: React.FC = () => {
 
               <div className="flex items-center gap-2 text-xs text-[#8C7E83]">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>Updated Daily with Amazon Verified Deals</span>
+                <span>Curated Finds • Discover • Compare • Choose</span>
               </div>
             </div>
 
             {/* Highlights ticker pills */}
             <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 text-xs text-[#6E6266]">
-              <span className="px-3 py-1 rounded-full bg-white/70 border border-[#F4D3DA]/60">✨ Anti-Tarnish Gold</span>
-              <span className="px-3 py-1 rounded-full bg-white/70 border border-[#F4D3DA]/60">💎 925 Sterling Silver</span>
-              <span className="px-3 py-1 rounded-full bg-white/70 border border-[#F4D3DA]/60">🎁 Luxury Gift Ready</span>
+              <span className="px-3 py-1 rounded-full bg-white/70 border border-[#F4D3DA]/60">Anti-Tarnish Finishes</span>
+              <span className="px-3 py-1 rounded-full bg-white/70 border border-[#F4D3DA]/60">925 Sterling Silver</span>
+              <span className="px-3 py-1 rounded-full bg-white/70 border border-[#F4D3DA]/60">Gift Ready Packaging</span>
             </div>
           </div>
 

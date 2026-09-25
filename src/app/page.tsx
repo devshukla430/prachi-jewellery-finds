@@ -95,7 +95,9 @@ export default function HomePage() {
                   Featured Jewellery Finds
                 </h2>
                 <span className="text-xs text-[#8C7E83] bg-[#FCEEF0] border border-[#F4D3DA] px-2.5 py-0.5 rounded-full font-medium">
-                  {filteredProducts.length} {filteredProducts.length === 1 ? 'item' : 'items'}
+                  {filteredProducts.length > 0
+                    ? `${filteredProducts.length} ${filteredProducts.length === 1 ? 'find' : 'finds'}`
+                    : 'Curated Collection'}
                 </span>
               </div>
 

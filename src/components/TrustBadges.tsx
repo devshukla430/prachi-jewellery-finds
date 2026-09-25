@@ -6,23 +6,23 @@ import { ShieldCheck, Truck, RotateCcw, Lock } from 'lucide-react';
 const BADGES = [
   {
     icon: ShieldCheck,
-    title: '100% Genuine',
-    subtitle: '(Through Amazon)',
+    title: 'Curated Finds',
+    subtitle: 'Handpicked from Amazon',
   },
   {
     icon: Truck,
-    title: 'Free & Fast',
-    subtitle: 'Delivery (Amazon)',
+    title: 'Discover & Compare',
+    subtitle: 'Trending styles & guides',
   },
   {
     icon: RotateCcw,
-    title: 'Easy Returns',
-    subtitle: '(As per Amazon policy)',
+    title: 'Amazon Official',
+    subtitle: 'Direct authentic links',
   },
   {
     icon: Lock,
-    title: 'Secure Payments',
-    subtitle: '(Through Amazon)',
+    title: 'Secure Checkout',
+    subtitle: 'Fulfilled by Amazon',
   },
 ];
 

@@ -147,133 +147,137 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Flipkart-Style Sort by Bar */}
-            <div className="bg-white rounded-2xl border border-[#F4D3DA] p-2.5 sm:px-4 sm:py-3 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-3">
-              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar text-xs">
-                <span className="font-bold uppercase tracking-wider text-[#BA4A6E] flex items-center gap-1 whitespace-nowrap shrink-0 text-[11px]">
-                  <ArrowUpDown className="w-3.5 h-3.5" />
-                  <span>Sort By:</span>
-                </span>
-                <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar">
-                  {flipkartSortOptions.map((opt) => (
-                    <button
-                      key={opt.id}
-                      onClick={() => setFilter('sortBy', opt.id)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all ${
-                        filters.sortBy === opt.id
-                          ? 'bg-[#BA4A6E] text-white font-semibold shadow-xs'
-                          : 'bg-[#FFF9FA] hover:bg-[#FDF0F3] text-[#4A3E42] border border-[#F4D3DA]/60'
-                      }`}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
+            {/* Flipkart-Style Sort by Bar (only when products exist) */}
+            {products.length > 0 && (
+              <div className="bg-white rounded-2xl border border-[#F4D3DA] p-2.5 sm:px-4 sm:py-3 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div className="flex items-center gap-2 overflow-x-auto no-scrollbar text-xs">
+                  <span className="font-bold uppercase tracking-wider text-[#BA4A6E] flex items-center gap-1 whitespace-nowrap shrink-0 text-[11px]">
+                    <ArrowUpDown className="w-3.5 h-3.5" />
+                    <span>Sort By:</span>
+                  </span>
+                  <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar">
+                    {flipkartSortOptions.map((opt) => (
+                      <button
+                        key={opt.id}
+                        onClick={() => setFilter('sortBy', opt.id)}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all ${
+                          filters.sortBy === opt.id
+                            ? 'bg-[#BA4A6E] text-white font-semibold shadow-xs'
+                            : 'bg-[#FFF9FA] hover:bg-[#FDF0F3] text-[#4A3E42] border border-[#F4D3DA]/60'
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="hidden md:flex items-center text-xs text-[#8C7E83] whitespace-nowrap">
+                  <span>Showing <strong>{filteredProducts.length}</strong> of {products.length} finds</span>
                 </div>
               </div>
+            )}
 
-              <div className="hidden md:flex items-center text-xs text-[#8C7E83] whitespace-nowrap">
-                <span>Showing <strong>{filteredProducts.length}</strong> of {products.length} finds</span>
+            {/* Flipkart-Style Quick Filter Strip (only when products exist) */}
+            {products.length > 0 && (
+              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+                <span className="text-[11px] font-semibold text-[#8C7E83] whitespace-nowrap shrink-0 hidden sm:inline">
+                  Quick Picks:
+                </span>
+
+                {/* Under ₹99 Quick Chip */}
+                <button
+                  onClick={() => setFilter('priceRange', filters.priceRange === 'Under ₹99' ? 'All' : 'Under ₹99')}
+                  className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                    filters.priceRange === 'Under ₹99'
+                      ? 'bg-[#BA4A6E] text-white shadow-xs'
+                      : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
+                  }`}
+                >
+                  <span>Under ₹99</span>
+                  {filters.priceRange === 'Under ₹99' && <X className="w-3 h-3" />}
+                </button>
+
+                {/* Under ₹499 Quick Chip */}
+                <button
+                  onClick={() => setFilter('priceRange', filters.priceRange === 'Under ₹499' ? 'All' : 'Under ₹499')}
+                  className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                    filters.priceRange === 'Under ₹499'
+                      ? 'bg-[#BA4A6E] text-white shadow-xs'
+                      : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
+                  }`}
+                >
+                  <span>Under ₹499</span>
+                  {filters.priceRange === 'Under ₹499' && <X className="w-3 h-3" />}
+                </button>
+
+                {/* Under ₹999 Quick Chip */}
+                <button
+                  onClick={() => setFilter('priceRange', filters.priceRange === 'Under ₹999' ? 'All' : 'Under ₹999')}
+                  className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                    filters.priceRange === 'Under ₹999'
+                      ? 'bg-[#BA4A6E] text-white shadow-xs'
+                      : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
+                  }`}
+                >
+                  <span>Under ₹999</span>
+                  {filters.priceRange === 'Under ₹999' && <X className="w-3 h-3" />}
+                </button>
+
+                {/* 4★ & above Rating Quick Chip */}
+                <button
+                  onClick={() => setFilter('rating', (filters.rating || 'All') === '4★ & above' ? 'All' : '4★ & above')}
+                  className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                    filters.rating === '4★ & above'
+                      ? 'bg-[#BA4A6E] text-white shadow-xs'
+                      : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
+                  }`}
+                >
+                  <Star className={`w-3 h-3 ${filters.rating === '4★ & above' ? 'fill-white' : 'fill-[#D4AF37] text-[#D4AF37]'}`} />
+                  <span>4★ & above</span>
+                  {filters.rating === '4★ & above' && <X className="w-3 h-3" />}
+                </button>
+
+                {/* 50%+ OFF Quick Chip */}
+                <button
+                  onClick={() => setFilter('discount', filters.discount === '50%+' ? 'All' : '50%+')}
+                  className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                    filters.discount === '50%+'
+                      ? 'bg-[#BA4A6E] text-white shadow-xs'
+                      : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
+                  }`}
+                >
+                  <span>50%+ OFF</span>
+                  {filters.discount === '50%+' && <X className="w-3 h-3" />}
+                </button>
+
+                {/* Gold Plated Quick Chip */}
+                <button
+                  onClick={() => setFilter('material', filters.material === 'Gold Plated' ? 'All' : 'Gold Plated')}
+                  className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                    filters.material === 'Gold Plated'
+                      ? 'bg-[#BA4A6E] text-white shadow-xs'
+                      : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
+                  }`}
+                >
+                  <span>Gold Plated</span>
+                  {filters.material === 'Gold Plated' && <X className="w-3 h-3" />}
+                </button>
+
+                {/* Silver Quick Chip */}
+                <button
+                  onClick={() => setFilter('material', filters.material === 'Silver' ? 'All' : 'Silver')}
+                  className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                    filters.material === 'Silver'
+                      ? 'bg-[#BA4A6E] text-white shadow-xs'
+                      : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
+                  }`}
+                >
+                  <span>925 Silver</span>
+                  {filters.material === 'Silver' && <X className="w-3 h-3" />}
+                </button>
               </div>
-            </div>
-
-            {/* Flipkart-Style Quick Filter Strip */}
-            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-              <span className="text-[11px] font-semibold text-[#8C7E83] whitespace-nowrap shrink-0 hidden sm:inline">
-                Quick Picks:
-              </span>
-
-              {/* Under ₹99 Quick Chip */}
-              <button
-                onClick={() => setFilter('priceRange', filters.priceRange === 'Under ₹99' ? 'All' : 'Under ₹99')}
-                className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
-                  filters.priceRange === 'Under ₹99'
-                    ? 'bg-[#BA4A6E] text-white shadow-xs'
-                    : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
-                }`}
-              >
-                <span>Under ₹99</span>
-                {filters.priceRange === 'Under ₹99' && <X className="w-3 h-3" />}
-              </button>
-
-              {/* Under ₹499 Quick Chip */}
-              <button
-                onClick={() => setFilter('priceRange', filters.priceRange === 'Under ₹499' ? 'All' : 'Under ₹499')}
-                className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
-                  filters.priceRange === 'Under ₹499'
-                    ? 'bg-[#BA4A6E] text-white shadow-xs'
-                    : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
-                }`}
-              >
-                <span>Under ₹499</span>
-                {filters.priceRange === 'Under ₹499' && <X className="w-3 h-3" />}
-              </button>
-
-              {/* Under ₹999 Quick Chip */}
-              <button
-                onClick={() => setFilter('priceRange', filters.priceRange === 'Under ₹999' ? 'All' : 'Under ₹999')}
-                className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
-                  filters.priceRange === 'Under ₹999'
-                    ? 'bg-[#BA4A6E] text-white shadow-xs'
-                    : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
-                }`}
-              >
-                <span>Under ₹999</span>
-                {filters.priceRange === 'Under ₹999' && <X className="w-3 h-3" />}
-              </button>
-
-              {/* 4★ & above Rating Quick Chip */}
-              <button
-                onClick={() => setFilter('rating', (filters.rating || 'All') === '4★ & above' ? 'All' : '4★ & above')}
-                className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
-                  filters.rating === '4★ & above'
-                    ? 'bg-[#BA4A6E] text-white shadow-xs'
-                    : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
-                }`}
-              >
-                <Star className={`w-3 h-3 ${filters.rating === '4★ & above' ? 'fill-white' : 'fill-[#D4AF37] text-[#D4AF37]'}`} />
-                <span>4★ & above</span>
-                {filters.rating === '4★ & above' && <X className="w-3 h-3" />}
-              </button>
-
-              {/* 50%+ OFF Quick Chip */}
-              <button
-                onClick={() => setFilter('discount', filters.discount === '50%+' ? 'All' : '50%+')}
-                className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
-                  filters.discount === '50%+'
-                    ? 'bg-[#BA4A6E] text-white shadow-xs'
-                    : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
-                }`}
-              >
-                <span>50%+ OFF</span>
-                {filters.discount === '50%+' && <X className="w-3 h-3" />}
-              </button>
-
-              {/* Gold Plated Quick Chip */}
-              <button
-                onClick={() => setFilter('material', filters.material === 'Gold Plated' ? 'All' : 'Gold Plated')}
-                className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
-                  filters.material === 'Gold Plated'
-                    ? 'bg-[#BA4A6E] text-white shadow-xs'
-                    : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
-                }`}
-              >
-                <span>Gold Plated</span>
-                {filters.material === 'Gold Plated' && <X className="w-3 h-3" />}
-              </button>
-
-              {/* Silver Quick Chip */}
-              <button
-                onClick={() => setFilter('material', filters.material === 'Silver' ? 'All' : 'Silver')}
-                className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
-                  filters.material === 'Silver'
-                    ? 'bg-[#BA4A6E] text-white shadow-xs'
-                    : 'bg-white border border-[#F4D3DA] text-[#6E6266] hover:border-[#BA4A6E]'
-                }`}
-              >
-                <span>925 Silver</span>
-                {filters.material === 'Silver' && <X className="w-3 h-3" />}
-              </button>
-            </div>
+            )}
           </div>
 
           {/* Active Filter Chips bar (if any applied) */}

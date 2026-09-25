@@ -219,23 +219,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setRegisteredUsers(JSON.parse(storedUsers));
       }
 
+      const sampleIds = ['prod-1', 'prod-2', 'prod-3', 'prod-4', 'prod-5', 'prod-6', 'prod-7', 'prod-8', 'prod-9', 'prod-10'];
       const storedProds = localStorage.getItem('prachi_products');
       if (storedProds) {
         try {
           const parsed = JSON.parse(storedProds);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            setProducts(parsed);
-          } else {
-            setProducts(INITIAL_PRODUCTS);
-            localStorage.setItem('prachi_products', JSON.stringify(INITIAL_PRODUCTS));
-          }
+          const filtered = Array.isArray(parsed) ? parsed.filter((p: Product) => !sampleIds.includes(p.id)) : [];
+          setProducts(filtered);
+          localStorage.setItem('prachi_products', JSON.stringify(filtered));
         } catch {
-          setProducts(INITIAL_PRODUCTS);
-          localStorage.setItem('prachi_products', JSON.stringify(INITIAL_PRODUCTS));
+          setProducts([]);
+          localStorage.setItem('prachi_products', JSON.stringify([]));
         }
       } else {
-        setProducts(INITIAL_PRODUCTS);
-        localStorage.setItem('prachi_products', JSON.stringify(INITIAL_PRODUCTS));
+        setProducts([]);
+        localStorage.setItem('prachi_products', JSON.stringify([]));
       }
 
       const storedClicks = localStorage.getItem('prachi_clicks');

@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-jakarta: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  color: #2D2427;
+  background-color: #FFF9FA;
+  font-family: var(--font-jakarta);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+h1, h2, h3, .font-serif {
+  font-family: var(--font-playfair);
+}
+
+/* Custom Soft Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FDF0F3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E8C1CB;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #BA4A6E;
+}
+
+/* Luxury button transitions */
+.btn-mauve {
+  background-color: #BA4A6E;
+  color: #FFFFFF;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-mauve:hover {
+  background-color: #A03B5C;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -4px rgba(186, 74, 110, 0.35);
+}
+
+.btn-mauve:active {
+  transform: translateY(0);
+}
+
+/* Smooth Category carousel scroll snap */
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-snap-center {
+  scroll-snap-align: center;
+}
+
+/* Botanical Flourish SVG Accent in Hero */
+.botanical-bg {
+  background-image: radial-gradient(#F4D3DA 0.75px, transparent 0.75px), radial-gradient(#F4D3DA 0.75px, #FFF9FA 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+}
+
+/* Hide scrollbar for clean horizontal carousel */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Shimmer pulse for badges */
+@keyframes softPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.pulse-badge {
+  animation: softPulse 3s ease-in-out infinite;
+}

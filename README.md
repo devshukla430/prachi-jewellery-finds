@@ -1,6 +1,6 @@
 # Prachi Jewellery Finds
 
-An aesthetic, high-performance web application and affiliate curation storefront for Amazon jewellery finds. Built with Next.js App Router, React, TypeScript, and Tailwind CSS. The platform features automated subscriber email alerts, private administrative inventory management, Google OAuth 2.0 authentication, Flipkart-style faceted search and filtering, 12 rich jewellery styling guides, and comprehensive legal and affiliate compliance modules.
+An aesthetic, high-performance web application and affiliate curation storefront for Amazon jewellery finds. Built with Next.js App Router, React, TypeScript, and Tailwind CSS. The platform features automated subscriber email alerts, Google OAuth 2.0 authentication, Flipkart-style faceted search and filtering, 12 rich jewellery styling guides, and comprehensive legal and affiliate compliance modules.
 
 Live Production URL: https://prachi-jewellery-finds.vercel.app  
 GitHub Repository: https://github.com/devshukla430/prachi-jewellery-finds
@@ -13,12 +13,11 @@ GitHub Repository: https://github.com/devshukla430/prachi-jewellery-finds
 2. Technology Stack
 3. Core Features
 4. Pinterest and Amazon Affiliate Architecture
-5. Administrative Portal Security and Access Gateway
-6. System Architecture and API Endpoints
-7. Environment Variables
-8. Local Setup and Installation
-9. Deployment Guide (GitHub and Vercel)
-10. Legal, Compliance, and Intellectual Property
+5. System Architecture and API Endpoints
+6. Environment Variables
+7. Local Setup and Installation
+8. Deployment Guide (GitHub and Vercel)
+9. Legal, Compliance, and Intellectual Property
 
 ---
 
@@ -26,7 +25,7 @@ GitHub Repository: https://github.com/devshukla430/prachi-jewellery-finds
 
 Prachi Jewellery Finds serves as a curated digital destination for discovering handpicked fashion, anti-tarnish, and fine jewellery available on Amazon India. The platform bridges visual discovery from Pinterest and Instagram directly to high-converting, compliant editorial guides on the storefront, directing buyers to Amazon with official associate tag attribution (`prachifinds-21`).
 
-The application features a private administrative portal allowing the store owner to add products, track outbound affiliate clicks, configure social media profiles, manage subscribers, and broadcast automated launch notifications to buyers with zero third-party subscription fees.
+The application features automated email subscriptions, real-time analytics logging for outbound curation traffic, and an editorial lifestyle publication designed to showcase timeless jewellery aesthetics.
 
 ---
 
@@ -56,7 +55,7 @@ The application features a private administrative portal allowing the store owne
 * Dynamic Search and Faceted Filtering: Search by keyword, category, price tier (Under 99, 499, 999), brand, material, and rating.
 * Flipkart-Style Sorting: Sort by relevance, popularity, price low-to-high, price high-to-low, newest arrivals, and customer ratings.
 * Curated Catalogue: Seeded with high-converting, realistic jewellery pieces across Earrings, Rings, Necklaces, Bracelets, and Gift Sets.
-* Editorial Content Hub: 12 comprehensive jewellery styling, buying, and care articles designed to fulfill Amazon Associates 10+ post guidelines.
+* Editorial Content Hub: 12 comprehensive jewellery styling, buying, and care articles designed to fulfill Amazon Associates content guidelines.
 * Saved Wishlist Drawer: Local client-side bookmarking of favorite jewellery finds without requiring registration.
 * Automated Email Subscription: Instant welcome confirmation email dispatched upon newsletter signup.
 
@@ -90,33 +89,12 @@ Qualifying Purchase and Commission Earnings
 
 ---
 
-## 5. Administrative Portal Security and Access Gateway
-
-To ensure the administrative management panel remains strictly confidential and protected from public exploration:
-
-### 1. Public Route Redirection
-* Plain visits to `/admin` automatically and immediately redirect public visitors back to the storefront homepage (`/`).
-* Public visitors never see the login form or administrative gateway on `/admin`.
-
-### 2. Private Owner Access Methods
-The store owner can access the administrative portal through three dedicated private channels:
-* Private Secret Route: Navigate directly to `/prachi-studio-gateway`.
-* URL Access Key: Navigate to `/admin?access=prachi921`.
-* Discreet Storefront Trigger: Clicking the copyright notice ("Prachi Jewellery Finds") in the website footer 5 times in rapid succession, or pressing keyboard shortcut `Ctrl + Shift + A`, automatically opens the private owner gateway.
-* Authenticated Account Menu: When logged into an account assigned the admin role, the navigation user menu presents an "Admin Portal" link pointing to the secret gateway.
-
-### 3. Multi-Factor Passcode and Gmail OTP Recovery
-* Access is protected by an encrypted administrator passcode.
-* If the passcode is forgotten, a built-in 3-step recovery flow dispatches a 6-digit one-time password (OTP) directly to the registered Google Gmail address via secure SMTP.
-
----
-
-## 6. System Architecture and API Endpoints
+## 5. System Architecture and API Endpoints
 
 ### API Route Specifications
 
 1. POST /api/auth/send-otp
-   Dispatches a cryptographically generated 6-digit verification code to the registered owner email address via Gmail SMTP for administrator passcode recovery.
+   Dispatches a cryptographically generated 6-digit verification code to the registered owner email address via Gmail SMTP.
 
 2. POST /api/auth/google
    Exchanges authorization codes and validates Google OAuth 2.0 user credentials directly with Google Cloud servers.
@@ -132,7 +110,7 @@ The store owner can access the administrative portal through three dedicated pri
 
 ---
 
-## 7. Environment Variables
+## 6. Environment Variables
 
 Create a file named `.env.local` in the project root directory and define the following variables:
 
@@ -149,7 +127,7 @@ EMAIL_PASS=your_16_character_google_app_password
 
 ---
 
-## 8. Local Setup and Installation
+## 7. Local Setup and Installation
 
 ### Prerequisites
 * Node.js (version 18.17.0 or higher recommended)
@@ -175,11 +153,10 @@ EMAIL_PASS=your_16_character_google_app_password
 
 4. Access the application:
    * Storefront: http://localhost:3000
-   * Owner Private Gateway: http://localhost:3000/prachi-studio-gateway
 
 ---
 
-## 9. Deployment Guide
+## 8. Deployment Guide
 
 ### Version Control (GitHub)
 Ensure all sensitive files (.env, .env.local, node_modules) are excluded by .gitignore prior to committing source files to remote repositories.
@@ -192,7 +169,7 @@ The application is pre-configured for automated continuous deployment on Vercel:
 
 ---
 
-## 10. Legal, Compliance, and Intellectual Property
+## 9. Legal, Compliance, and Intellectual Property
 
 ### Amazon Associates Compliance
 Prachi Jewellery Finds operates in compliance with the Amazon Associates Program Operating Agreement and FTC affiliate disclosure guidelines. All outbound product recommendations include clear attribution.

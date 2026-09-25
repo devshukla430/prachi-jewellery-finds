@@ -577,7 +577,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const data = await res.json();
       return {
         success: data.success ?? true,
-        message: data.message || `Verification code sent from shukladevesh545@gmail.com to ${targetEmail}`,
+        message: data.message || `Verification code sent from devshukla430@gmail.com to ${targetEmail}`,
       };
     } catch (err: any) {
       console.warn('Admin OTP error:', err);

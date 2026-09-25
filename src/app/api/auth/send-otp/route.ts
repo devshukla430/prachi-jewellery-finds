@@ -15,9 +15,9 @@ export async function POST(request: Request) {
     const isAdmin = type === 'admin' || purpose === 'admin_2fa' || purpose === 'admin_reset';
 
     // Storefront sender: prachishukla921@gmail.com
-    // Admin panel sender: shukladevesh545@gmail.com
+    // Admin panel sender: devshukla430@gmail.com
     const senderEmail = isAdmin
-      ? (process.env.ADMIN_EMAIL_USER || 'shukladevesh545@gmail.com').trim()
+      ? (process.env.ADMIN_EMAIL_USER || 'devshukla430@gmail.com').trim()
       : (process.env.EMAIL_USER || 'prachishukla921@gmail.com').trim();
 
     const senderPass = isAdmin

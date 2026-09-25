@@ -237,7 +237,7 @@ export default function AdminDashboard() {
       const res = await sendAdminOtp('admin_2fa');
       if (res.success) {
         setAdmin2FACountdown(60);
-        showToast('New 2FA code sent from shukladevesh545@gmail.com to prachishukla921@gmail.com');
+        showToast('New 2FA code sent from devshukla430@gmail.com to prachishukla921@gmail.com');
       } else {
         setAdmin2FAError(res.message || 'Failed to resend code.');
       }
@@ -268,7 +268,7 @@ export default function AdminDashboard() {
       if (res.success) {
         setRecoveryStep('verify-otp');
         setAdminOtpCountdown(45);
-        showToast('Verification OTP dispatched from shukladevesh545@gmail.com to prachishukla921@gmail.com');
+        showToast('Verification OTP dispatched from devshukla430@gmail.com to prachishukla921@gmail.com');
       } else {
         setRecoveryError(res.message || 'Failed to dispatch verification code via Gmail.');
       }
@@ -840,7 +840,7 @@ export default function AdminDashboard() {
               <div className="p-3.5 rounded-2xl bg-[#FFF9FA] border border-[#F4D3DA] text-left text-xs space-y-1.5">
                 <div className="flex items-center justify-between text-[11px]">
                   <span className="text-[#8C7E83]">Sent From:</span>
-                  <span className="font-mono font-semibold text-[#BA4A6E]">shukladevesh545@gmail.com</span>
+                  <span className="font-mono font-semibold text-[#BA4A6E]">devshukla430@gmail.com</span>
                 </div>
                 <div className="flex items-center justify-between text-[11px]">
                   <span className="text-[#8C7E83]">Recipient Inbox:</span>
@@ -962,7 +962,7 @@ export default function AdminDashboard() {
                     </span>
                     <div className="flex items-center justify-between text-[11px]">
                       <span className="text-[#8C7E83]">Sent From:</span>
-                      <span className="font-mono font-semibold text-[#BA4A6E]">shukladevesh545@gmail.com</span>
+                      <span className="font-mono font-semibold text-[#BA4A6E]">devshukla430@gmail.com</span>
                     </div>
                     <div className="flex items-center justify-between text-[11px]">
                       <span className="text-[#8C7E83]">Recipient Inbox:</span>
@@ -1004,7 +1004,7 @@ export default function AdminDashboard() {
                   <div className="p-3 rounded-xl bg-pink-50/70 border border-[#F4D3DA] text-[#6E6266] text-[11px] leading-relaxed space-y-1">
                     <p>A single-use 6-digit verification code has been dispatched to your Gmail inbox.</p>
                     <div className="text-[10px] text-[#8C7E83] pt-1 space-y-0.5">
-                      <div>Sender: <strong className="font-mono text-[#BA4A6E]">shukladevesh545@gmail.com</strong></div>
+                      <div>Sender: <strong className="font-mono text-[#BA4A6E]">devshukla430@gmail.com</strong></div>
                       <div>Recipient: <strong className="font-mono text-[#2D2427]">prachishukla921@gmail.com</strong></div>
                     </div>
                   </div>

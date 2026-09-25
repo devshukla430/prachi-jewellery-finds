@@ -23,7 +23,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, compact = fal
     e.preventDefault();
 
     const pinUrl = `https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent(
-      typeof window !== 'undefined' ? window.location.href : 'https://prachijewelleryfinds.com'
+      typeof window !== 'undefined' ? window.location.href : 'https://prachi-jewellery-finds.vercel.app'
     )}&media=${encodeURIComponent(imgSrc)}&description=${encodeURIComponent(
       `${product.title} - Only ₹${product.offerPrice} on Amazon via Prachi Jewellery Finds`
     )}`;

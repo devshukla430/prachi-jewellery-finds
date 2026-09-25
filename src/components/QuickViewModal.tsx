@@ -15,7 +15,7 @@ export const QuickViewModal: React.FC = () => {
 
   const handlePinterestPin = () => {
     const pinUrl = `https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent(
-      typeof window !== 'undefined' ? window.location.href : 'https://prachijewelleryfinds.com'
+      typeof window !== 'undefined' ? window.location.href : 'https://prachi-jewellery-finds.vercel.app'
     )}&media=${encodeURIComponent(imgSrc || activeQuickViewProduct.imageUrl)}&description=${encodeURIComponent(
       `${activeQuickViewProduct.title} - Only ₹${activeQuickViewProduct.offerPrice} on Amazon via Prachi Jewellery Finds`
     )}`;

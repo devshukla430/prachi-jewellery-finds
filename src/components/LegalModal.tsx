@@ -331,7 +331,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                   1. Acceptance of Terms
                 </h5>
                 <p>
-                  By accessing and browsing <strong>prachijewelleryfinds.com</strong>, you agree to comply with and be bound by these Terms and Conditions. If you do not agree to these terms, please do not use our website.
+                  By accessing and browsing <strong>prachi-jewellery-finds.vercel.app</strong>, you agree to comply with and be bound by these Terms and Conditions. If you do not agree to these terms, please do not use our website.
                 </p>
               </div>
 

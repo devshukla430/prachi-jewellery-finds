@@ -144,7 +144,7 @@ export async function POST(request: Request) {
             <div class="perk-item">🔒 <strong>100% Free Lifetime:</strong> Zero hidden charges or subscription fees ever.</div>
           </div>
 
-          <a href="https://prachijewelleryfinds.com" class="cta-btn">Explore Today's Finds →</a>
+          <a href="https://prachi-jewellery-finds.vercel.app" class="cta-btn">Explore Today's Finds →</a>
 
           <div class="footer">
             You subscribed to alerts at Prachi Jewellery Finds.<br>

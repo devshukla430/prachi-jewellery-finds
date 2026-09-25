@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Prachi Jewellery Finds - Handpicked Amazon Jewellery',
     description: 'Find It. Love It. Wear It. Explore handpicked styles and trending pieces directly via Amazon.',
-    url: 'https://prachijewelleryfinds.com',
+    url: 'https://prachi-jewellery-finds.vercel.app',
     siteName: 'Prachi Jewellery Finds',
     images: [
       {
